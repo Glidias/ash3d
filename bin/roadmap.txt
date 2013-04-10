@@ -1,0 +1,62 @@
+PlayerMovementSystem (keyboard controls and such..)
+
+Gravity/GravitySystem
+
+Damping/DampingSystem
+
+_________________________
+
+PRESET behaviours for MoveResult component:
+For common behaviours like:
+(surface) - moves along surface  (canceling out any velocity along surface normal). Keeps track of any surface touch/no touch changes and performs necessary actions accordingly.
+(surfaceJump) - same as above, but also adjusts Jump component accordingly
+(bounce)  - Performs bounce and optionally adjusts ang velocity
+(sticky) - Sticks to surface and optionally aligns angle accordingly
+(halt) - stops the object dead in it's tracks
+The above can be customised/extended into custom classes to perform more specific behaviours per entity, particularly with adding sounds and such.
+
+___________
+
+Ellipsoid/ StaticEllipsoidCollisionDetectSystem (resolves velocity against static environment to get resultant velocity). Static environment might include non-moving AI/players as well. Also optionally collects all required Move results,(collision events and final destination) that occured for each entity's move.
+[[numOfCollisionEvents:Int=0 ]]
+Based on numOfCollisionEvents, three types of methods are used for the EllipsoidCollider..
+  - n==0 : prepare/checkCollision()/calculateDestination(): with transformation, (SlideNoSignal)
+  - n==1 : prepare/checkCollision() without transformation, assign event with matrix.  (HaltSignal)
+  - n>1 : prepare/checkCollision()/calculateDestination() without transformation, collect events with matrix (SlideSignal)
+
+SlideNoSignal - good for floating character entities that simply slide around the entire environment and don't need any callbacks.
+HaltSignal - good for projectiles/sticky/ai-stop-and-react entities where only the closest collision matters.
+SlideSignal - good for bouncing entities (eg. grenades), or character entities subjected to floor contact checking, where determining highest collision normal can see whether or not player is on ground or not.
+
+n = -1 means largest possible number of events to collect.
+
+An external framework system might be used for such a purpose instead.
+
+____________________________
+
+DynamicEllipsoidCCDSystem ( CCD test collision against other players' ellipspoids if their sweep aabbs collide)
+Same as above, but against moving entity ellipsoids. There is also no limit to the "n" value, but there's a boolean flag to indicate whether to calculate. In some cases, a quad-tree/grid might be used as a broadphase. An external framework system might be used for such a purpose instead.
+[[numOfCollisionEvents:Int=0 ]]
+
+__________________________
+
+CollisionEvent: (collision point, collision normal)
+EntityCollisionEvent ( same as CollisionEvent but with entity pointer)
+____________________________
+
+MovementCollisionResolveSystem
+   Adjusts any entities' velocity to match given result of collision events within MoveResult method. 
+   This would probably be an entity-specific callback to handle the MoveResult or, most likely an extended function within MoveResult itself, or a set of physics setting to indicate (noneSlide, bounce, sticky, halt, surface) some inline behaviour without abstraction, though adding of sounds and more advanced entity-specific functionality is hard without abstraction.
+   If no colliison events are found, simply adjusts velocity to match final position.
+
+or
+
+MovementSystem
+Integrates everyone forward by given velocity/ang velocity so everyone is at their correct positions.
+
+__________________________________
+
+SoundQueueSystem
+   Plays sounds, caches them and possibly re-uses them.
+
+_________________________________________________
