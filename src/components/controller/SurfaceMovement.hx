@@ -3,8 +3,9 @@ import util.geom.Vec3;
 import util.geom.Vec3Utils;
 
 /**
- * Component with prescriptive System macro-implementation below (inlinable).
- * Supports your basic move forward/back and strafe/back actions.
+ * Component that supports your basic move forward/back and strafe left/right actions.
+ * Provides a prescriptive inline method that systems can use. (This could be factored out later...)
+ * 
  * @author Glenn Ko
  */
 class SurfaceMovement 
