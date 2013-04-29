@@ -1,29 +1,40 @@
 package systems.movement;
+import ash.core.Engine;
 import ash.core.Node;
-import ash.tools.ListIteratingSystem;
-import components.Damp;
-import components.Gravity;
+import ash.core.NodeList;
+import ash.core.System;
 import components.Vel;
 
 /**
  * ...
  * @author Glenn Ko
  */
-class DampingSystem extends ListIteratingSystem<DampNode>
+class DampingSystem extends System
 {
+	private var nodeList:NodeList<DampingNode>;
 
 	public function new() 
 	{
-		super(DampNode, updateNode);
+		super();
+	}
+	override public function addToEngine(engine:Engine):Void {
+		nodeList = engine.getNodeList(DampingNode);
 	}
 	
-	private function updateNode(node:GravityNode, time:Float):Void {
-		node.damp.update(node.vel, time);
+	override public function update(time:Float):Void {
+		var n:DampingNode = nodeList.head;
+		
+		while (n != null) {
+			n.damping.update(n.vel, time);
+			n = n.next;
+		}
 	}
 }
 
 
-class DampNode extends Node<DampNode> {
-	public var damp:Damp;
+class DampingNode extends Node<DampingNode> {
+	public var damping:Damping;
 	public var vel:Vel;
+	
+	
 }

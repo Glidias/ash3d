@@ -69,6 +69,13 @@ class Vec3Utils
 		output.y =  v.y - axis.y * scalar;
 		output.z = v.z - axis.z * scalar;
     }	
+	inline public static function normalize(v:XYZ):Void {
+		
+		var sc:Float = 1 / Math.sqrt( v.x * v.x + v.y * v.y + v.z * v.z );
+		v.x *= sc;
+		v.y *= sc;
+		v.z *= sc;
+	}
 	
 	inline public static function subtract(output:XYZ, input:XYZ):Void {
 		output.x -= input.x;

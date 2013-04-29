@@ -1,7 +1,5 @@
 package ;
 
-
-
 import #if(nme)nme#elseif(flash)flash#end.display.Sprite;
 import #if(nme)nme#elseif(flash)flash#end.events.Event;
 import #if(nme)nme#elseif(flash)flash#end.Lib;
@@ -9,7 +7,6 @@ import #if(nme)nme#elseif(flash)flash#end.media.Sound;
 import #if(nme)nme#elseif(flash)flash#end.net.URLRequest;
 import #if(nme)nme#elseif(flash)flash#end.ui.Keyboard;
 import flash.Lib;
-import systems.collisions.EllipsoidCollider;
 
 /**
  * ...
@@ -25,7 +22,7 @@ class Main extends Sprite
 	{
 		super();
 		
-		EllipsoidCollider;
+
 	}
 	
 

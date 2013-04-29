@@ -14,7 +14,7 @@ class CollisionResult
 	 public static inline var MAX_GROUND_NORMAL_THRESHOLD:Float = .8;
 	public var max_ground_normal_threshold:Float; 
 	
-	// What results are to be calculated. In some cases, not calculating certain things might force engines to re-calculate stuff, or ignore
+	// What results are calculated. In some cases, not calculating certain things might force engines to re-calculate stuff, or ignore
 	// situations where it can't find the relavant results.
 	public var flags:Int;	
 	public static inline var FLAG_MAX_NORMAL_IMPULSE:Int = 1;

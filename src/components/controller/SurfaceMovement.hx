@@ -1,6 +1,7 @@
 package components.controller;
 import util.geom.Vec3;
 import util.geom.Vec3Utils;
+import util.geom.XYZ;
 
 /**
  * Component that supports your basic move forward/back and strafe left/right actions.
@@ -81,30 +82,31 @@ class SurfaceMovement
 	}
 
 	
-	inline public function update(time:Float,rotation:Vec3, velocity:Vec3, ground_normal:Vec3 = null):Void {
+	// -- macro methods
+	inline public function update(time:Float,rotation:XYZ, velocity:XYZ, ground_normal:XYZ = null):Void {
 		updateWith(time, rotation,velocity, walk_state, strafe_state, forwardVec, rightVec, WALK_SPEED, WALKBACK_SPEED, STRAFE_SPEED, friction, ground_normal);
 	}
 	
-	public static inline function updateWith(time:Float, rotation:Vec3, velocity:Vec3, walkState:Int, strafeState:Int, forwardVec:Vec3, rightVec:Vec3, WALK_SPEED:Float, WALKBACK_SPEED:Float, STRAFE_SPEED:Float, friction:Float=.25, ground_normal:Vec3 = null):Void {
+	public static inline function updateWith(time:Float, rotation:XYZ, velocity:XYZ, walkState:Int, strafeState:Int, forwardVec:XYZ, rightVec:XYZ, WALK_SPEED:Float, WALKBACK_SPEED:Float, STRAFE_SPEED:Float, friction:Float=.25, ground_normal:XYZ = null):Void {
 		var multiplier:Float;
 		
 		if (ground_normal != null) { // can walk on ground
-			velocity.scale(friction);  
+  
+			Vec3Utils.scale(velocity, friction);
 			/*
 			 * Math.cos(this.thingBase.azimuth) * Math.cos(this.thingBase.elevation), Math.sin(this.thingBase.azimuth) * Math.cos(this.thingBase.elevation)
 			 */
 			forwardVec.x = -Math.sin(rotation.z); //Math.cos(rotation.z) * Math.cos(rotation.y);  // frm rotation.z azimith
 			forwardVec.y = Math.cos(rotation.z);//Math.sin(rotation.z) * Math.cos(rotation.y); // frm rotation.x pitch.  //* Math.cos(rotation.x)
 			forwardVec.z = 0;
-			if (forwardVec.dotProduct(ground_normal) > 0) {
+			if ( Vec3Utils.dot( forwardVec, ground_normal) > 0) {
 				//forwardVec.removeComponent(ground_normal);
-				multiplier = axis.x * ground_normal.x + axis.y * ground_normal.y + axis.z * ground_normal.z;
-				forwardVec.x -= axis.x * multiplier;
-				forwardVec.y -= axis.y * multiplier;
-				forwardVec.z -= axis.z * multiplier;
+				multiplier = forwardVec.x * ground_normal.x + forwardVec.y * ground_normal.y + forwardVec.z * ground_normal.z;
+				forwardVec.x -= forwardVec.x * multiplier;
+				forwardVec.y -= forwardVec.y * multiplier;
+				forwardVec.z -= forwardVec.z * multiplier;
 			}
-			forwardVec.normalize();
-			
+			Vec3Utils.normalize(forwardVec);
 			if (walkState != 0 ) {
 				multiplier = (walkState != WALK_BACK) ? WALK_SPEED : -WALKBACK_SPEED;
 				velocity.x += forwardVec.x * multiplier;
@@ -114,7 +116,7 @@ class SurfaceMovement
 			}
 			
 			Vec3Utils.writeCross(forwardVec, ground_normal, rightVec);
-			rightVec.normalize();
+			Vec3Utils.normalize(rightVec);
 			if (strafeState != 0) {
 				multiplier = strafeState != STRAFE_LEFT ? STRAFE_SPEED : -STRAFE_SPEED;
 				velocity.x += rightVec.x * multiplier;

@@ -9,6 +9,7 @@ import ash.core.Entity;
 import flash.errors.Error;
 import flash.geom.Vector3D;
 import util.geom.Vec3;
+import util.geom.Vec3Utils;
 import util.geom.XYZ;
 
 class CollisionEvent 

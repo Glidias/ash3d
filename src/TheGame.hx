@@ -2,6 +2,9 @@ package ;
 import ash.core.Engine;
 import ash.tick.FrameTickProvider;
 import flash.display.Stage;
+import systems.collisions.EllipsoidCollider;
+import systems.movement.GravitySystem;
+import systems.movement.SurfaceMovementSystem;
 
 /**
  * ...
@@ -30,7 +33,10 @@ class TheGame
 		ticker.add(engine.update);
 		
 		// Create systems
-
+		EllipsoidCollider;
+		SurfaceMovementSystem;
+		GravitySystem;
+		
 				
 		// Spawn starting entities
 		

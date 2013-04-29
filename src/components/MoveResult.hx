@@ -41,7 +41,7 @@ class MoveResult implements XYZ
 	}
 	
 	public inline function disposeCollisions():Void {
-		while ( collisions) collisions = collisions.next;
+		while ( collisions!=null) collisions = collisions.next;
 	}
 	
 	

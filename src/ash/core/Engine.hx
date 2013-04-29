@@ -45,7 +45,7 @@ class Engine
     {
         entityList = new EntityList();
         systemList = new SystemList();
-        families = new ObjectMap<Class<Node<Dynamic>>, IFamily<Dynamic>>();
+       // families = new ObjectMap<Class<Node<Dynamic>>, IFamily<Dynamic>>();
         entityAdded = new Signal1<Entity>();
         entityRemoved = new Signal1<Entity>();
         updateComplete = new Signal0();
