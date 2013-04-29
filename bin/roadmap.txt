@@ -1,29 +1,13 @@
-Refactoring 5 entity-controlled components to system-controlled components.
---------------------------------------------------------------------------
 
-1) PhysicsComponent:
-Supports gravity, damping, bounce and sticky flags. Flags used to selectively process certain aspects of the entity.
->
-(refactored to seperate Gravity, Damping, Bounce, Sticky components, and  seperate systems: DampignSystem/GravitySystem/PhysicsSystem)..... -or- 1 physics system / 1 physics component with flags only?
+1a) Working static environment collision against ICollidable implementations,
+	- Hierachical Bounding Spheres  (A3D7/A3D8 Scene graph to hierchical BoundingSpheres)  
+	- Hierchical Bounding Boxes     (A3D7/A3D8 Scene graph to hierchical BoundingBoxes) 	(this can recurse into child ICollidable instances )
+    - BSP Geometry                  (A3d7 BSPContainer to BSP tree of geometries) - great for non-axis-aligned cities/indoors and such. Can be streamed in.
+    - KD Geometry                   (A3d7 KDContainer to KD tree of geometries) - great for axis-aligned cities and such. Can be streamed in. Can recurse into ICollidable instead.
+	- A3D8 Quadtree terrain          (QuadSquareChunks to on-the-fly generated geometries)  *  
+1b) ( and ray detection IRayIntersectable:)
+________________________________	
+2) Milkshape to A3d7 to A3D8. Milkshape to animations for A3D8. *
+3) Working upper/lower body controllers and animation for characters (A3D) *  (test on simple plane floor (box room geometry) first before going to quadtree terrain)
 
-2) MovementComponent:
-Supports player movement on ground, jumping, etc. Depends on PhysicsComponent for PhysicsResults to determine state of movement/jumping ability. 
-->
-(refactored to seperate Jump, SurfaceMovement components, and a PhysicsSystem and SurfaceMovementSystem to  handle these 2 things)   -or- 1 movement system / 1 movement component only?
- 
-3) AudioComponent:
-Performs playing of sound through entity signaler.
--> 
-( includes a system to pool, queue and play sounds )
-
-4) WeaponComponent:
-Fixed Weapon slots and specific behaviour per slot
--> (may probably include a generic FiringSystem to handle common firing behaviours within an environment?? Otherwise, hardcodign this as some game-specific WeaponSystem should be fine as it can still be as one so wishes. As always, it depends on the scope and type of game you're after...since too much prescription may not be necessary in some case, especially since not all games might be shooter-based, but melee based.  )
-
-5) AnimationComponent:
--> 
-(  includes a generic AnimationSystem to run through all IAnimatable instances for playing,  since animations tend to be very engine/platform-specific)
-
-
-The premise:
-To combine aspects for a component and system, or seperate aspects into multiple components and systems? Not all surface-moving entities may jump. Not all entities may use gravity/damping/bounce/sticky behaviour. So, why should they all use such a PhysicsComponent with unused fields if an instance's option flag doesn't require it anyway? But having more seperate systems and components, means more nodes, and more iteration passes....
+* - Priority
