@@ -4,6 +4,7 @@
  */
 
 package components;
+import util.geom.XYZ;
 
 
 class Jump 
@@ -33,7 +34,7 @@ class Jump
 	}
 	 
 	
-	inline public function attemptJump(velocity:ITuple3, time:Float):Bool {
+	inline public function attemptJump(velocity:XYZ, time:Float):Bool {
 		var result:Bool = enabled && this.jump_timer <= 0;
 		if (result)
 		{

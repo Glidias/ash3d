@@ -8,10 +8,12 @@ import ash.signals.Signal1;
 class ActionSignal extends Signal1<String>
 {
 	public var current:String;
+	public var locked:Bool; // flag for misc use
 	
 	public function new() 
 	{
 		super();
+		locked = false;
 		
 	}
 	

@@ -52,7 +52,7 @@ import flash.display.DisplayObject;
  * <p>The KeyPoll class rectifies this. It has isDown and isUp methods, each taking a key code as a
  * parameter and returning a Boolean.</p>
  */
-class KeyPoll
+class KeyPoll implements IKeyPoll
 {
     private var states:Bytes;
     private var dispObj:DisplayObject;

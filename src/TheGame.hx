@@ -5,6 +5,8 @@ import flash.display.Stage;
 import systems.collisions.EllipsoidCollider;
 import systems.movement.GravitySystem;
 import systems.movement.SurfaceMovementSystem;
+import systems.player.PlayerControlActionSystem;
+import systems.player.PlayerJumpSystem;
 
 /**
  * ...
@@ -36,7 +38,8 @@ class TheGame
 		EllipsoidCollider;
 		SurfaceMovementSystem;
 		GravitySystem;
-		
+		PlayerControlActionSystem;
+		PlayerJumpSystem;
 				
 		// Spawn starting entities
 		
