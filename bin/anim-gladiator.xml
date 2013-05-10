@@ -17,7 +17,7 @@
 		<a f="" id="combat_walkforward" />    <!-- combat_walk -->
 		<a f="" id="combat_runforward" />  <!-- run -->
 		<a f="" id="combat_walkback" />  <!-- combat_walk -->
-		<a f="" id="combat_runback" />  <!--  combat_walk , same as above due to no animation atm -->
+		<a f="" id="combat_runback" />  <!--  combat_walk , same as above -->
 		<a f="" id="combat_moveleft" />  <!-- strafeleft -->
 		<a f="" id="combat_moveright" /> <!-- straferight -->
 		
@@ -118,6 +118,8 @@ else if (standing & runforward) {
 	always use full-body "jog" (walk2handed) animation. 
 }
 // aesthetically, while in combat mode, your default forward movement could be walk speed, accelerate to jog, double tab accelerate to sprint....
+Jogging will not recover stamina.
+// it woudl be good to have a combat_runback animation, to allow for backpedaling motion (a backpedal jog), with no recovering of stamina.
 
 else if (standing & strafing animations being used) {
    always use combat/crouch_moveleft/moveright, since no standing_moveleft/moveright, avaialbe..
