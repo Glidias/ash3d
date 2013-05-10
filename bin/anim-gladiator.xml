@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <data>
 	<anims loop="true">
-		<!-- lower body animations -->
-		<a f="" id="combat_idle" />
-		<a f="" id="crouch_idle" />
-		
+		<!-- Lower body animations -->
 		<a f="" id="stand_walkforward" /> <!-- walk lower body, ref -->
 		<!--<a f="" id="stand_runforward" /> -->
 		<a f="" id="stand_walkback" />  <!-- walk -->
@@ -29,7 +26,9 @@
 		<a f="" id="crouch_moveright" />  <!-- crouch_right -->
 		
 		<!-- Full body animations -->
-		<a f="" id="idle"  /> 
+		<a f="" id="combat_idle" />
+		<a f="" id="crouch_idle" />
+		<a f="" id="standing_idle"  /> 
 		<a f="" id="run" />  <!-- run2 : full-body sprinting motion, can also use this range for stand/combat_runforward -->
 		<a f="" id="jog" />   <!-- walk2handed : full-body jogging motion -->
 		<a f="" id="kick" loop="false" />
@@ -54,6 +53,7 @@
 		<a f="" id="ref_shield_bash" loop="false" />
 		<a f="" id="ref_shield_block"  />
 		
+		<!-- Damage/death animations -->
 		<a f="" id="flinch_gut" loop="false" g="ACT_FLINCH" />
 		<a f="" id="flinch_head" loop="false" g="ACT_FLINCH" />
 		<a f="" id="flinch_leftarm" loop="false" g="ACT_FLINCH" />
@@ -69,8 +69,8 @@
 		<a f="" id="die_gutshot" loop="false" g="ACT_DIE" />
 		<a f="" id="headshot" loop="false" g="ACT_DIE" />
 		
-		<a f="" id="deadback" loop="false" g="ACT_DEAD"/>
-		<a f="" id="deadsitting" loop="false" g="ACT_DEAD" />
+		<a f="" id="deadback" loop="false" g="ACT_DEAD_GROUND"/>
+		<a f="" id="deadsitting" loop="false" g="ACT_DEAD_GROUND" />
 		<a f="" id="deadtable" loop="false" />
 		<a f="" id="deadsitting" loop="false" />
 		
@@ -111,10 +111,10 @@ run2 - sprinting   (only forwards allowed)  (If accelerate key being pressed). T
 Choose either:
 
 // special case for gladiator
-if (standing & idle) {
-  // use full body idle animation
-}
-else if (standing & runforward) { 
+
+// all idle animations use full body animations
+
+if (standing & runforward) { 
 	always use full-body "jog" (walk2handed) animation. 
 }
 // aesthetically, while in combat mode, your default forward movement could be walk speed, accelerate to jog, double tab accelerate to sprint....
