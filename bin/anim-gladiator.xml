@@ -110,9 +110,11 @@ run2 - sprinting   (only forwards allowed)  (If accelerate key being pressed). T
 
 Choose either:
 
-// special case for gladiator
+// Special case for gladiator:
 
 // all idle animations use full body animations
+
+// there is no runleft/runright animation. For stafing at acelerated speed, the character turns briefly and and runs/moves quickly in the direction of the strafing motion, dependong on whether he is standing/crouching. It would be good to  have a sideways swing attack animation as well (like calvary attack animation).
 
 if (standing & runforward) { 
 	always use full-body "jog" (walk2handed) animation. 
